@@ -1,0 +1,44 @@
+﻿<form id="frmLogin">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 offset-md-4">
+            <h2 class="text-center ">User Login</h2>
+            <hr />
+            <div>
+                <label>Email:</label>
+                <input type="text" id="uid" name="uid" class="form-control" placeholder="Enter Email (admin@@live.com)" value="admin" required autocomplete="off" />
+            </div>
+            <div class="clearfix m-1"></div>
+            <div>
+                <label>Password:</label>
+                <input type="password" id="pwd" name="pwd" class="form-control" placeholder="Enter Password (123)" value="123" required />
+            </div>
+            <div class="clearfix m-3"></div>
+            <button type="submit" class="btn btn-block btn-primary">Login</button>
+        </div>
+    </div>
+</form>
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#frmLogin').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/auth/login',
+                    type: 'POST',
+                    data: $('#frmLogin').serialize(),
+                    success: function (resp) {
+                        if (resp.status == true) {
+                            alert('You have successfully signed in.');
+                            window.location = '/';
+                        } else {
+                            alert('Please enter valid email and password.');
+                        }
+                    }
+                });
+            })
+        });
+    </script>
+}
